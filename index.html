@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>西嶋様邸 オプション工事 ムードボード</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #f8f6f3;
+    color: #2c2c2c;
+    overflow-x: hidden;
+  }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a2a4a 0%, #2d4a7a 40%, #4a7ab5 100%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(100,160,220,0.15) 0%, transparent 50%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 0 2rem;
+  }
+
+  .hero-label {
+    font-size: 0.85rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 300;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 2px;
+    background: rgba(255,255,255,0.5);
+    margin: 2rem auto;
+  }
+
+  .hero-detail {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    letter-spacing: 3px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    animation: bounce 2s infinite;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.3);
+    margin: 0.8rem auto 0;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* Section Common */
+  .section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #4a7ab5;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    color: #1a2a4a;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+  }
+
+  .section-desc {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.9;
+    max-width: 600px;
+    font-weight: 300;
+  }
+
+  /* Product Cards - Alternating Layout */
+  .product-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 4rem 0;
+    min-height: 500px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .product-block:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+  }
+
+  .product-block.reverse {
+    direction: rtl;
+  }
+
+  .product-block.reverse > * {
+    direction: ltr;
+  }
+
+  .product-image {
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .product-block:hover .product-image img {
+    transform: scale(1.05);
+  }
+
+  .product-image .overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(26,42,74,0.3) 100%);
+  }
+
+  .product-info {
+    padding: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .product-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgba(74,122,181,0.12);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .product-category {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #4a7ab5;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+
+  .product-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a2a4a;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .product-maker {
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .product-desc {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.9;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .product-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .spec-tag {
+    padding: 0.4rem 1rem;
+    background: #f0f4f8;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: #4a7ab5;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .product-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding: 0.7rem 1.5rem;
+    background: linear-gradient(135deg, #1a2a4a, #4a7ab5);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    width: fit-content;
+  }
+
+  .product-link:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 15px rgba(74,122,181,0.3);
+  }
+
+  .product-link::after {
+    content: '→';
+    transition: transform 0.3s ease;
+  }
+
+  .product-link:hover::after {
+    transform: translateX(4px);
+  }
+
+  /* Summary Section */
+  .summary {
+    background: linear-gradient(135deg, #1a2a4a 0%, #2d4a7a 40%, #4a7ab5 100%);
+    padding: 6rem 2rem;
+    color: #fff;
+    text-align: center;
+  }
+
+  .summary-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .summary-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 600;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+  }
+
+  .summary-text {
+    font-size: 0.95rem;
+    line-height: 2;
+    opacity: 0.85;
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .summary-item {
+    padding: 2rem 1rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .summary-item-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .summary-item-label {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    letter-spacing: 2px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    background: #1a2a4a;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+
+  .footer-logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    letter-spacing: 3px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .product-block {
+      grid-template-columns: 1fr;
+    }
+    .product-block.reverse {
+      direction: ltr;
+    }
+    .product-image {
+      min-height: 280px;
+    }
+    .product-info {
+      padding: 2rem;
+    }
+    .summary-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">Option Construction Mood Board</div>
+    <h1 class="hero-title">西嶋様邸</h1>
+    <p class="hero-subtitle">オプション工事プラン</p>
+    <div class="hero-divider"></div>
+    <p class="hero-detail">2026.02.09 ── REALIFE</p>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- Intro -->
+<section class="section">
+  <div class="section-label">Concept</div>
+  <h2 class="section-title">理想の暮らしを、<br>カタチにする。</h2>
+  <p class="section-desc">
+    西嶋様邸のオプション工事では、快適さとデザイン性を両立した製品をセレクトいたしました。
+    アンテナ工事からウィンドウトリートメント、カーポートまで、
+    暮らしの質を高める厳選されたプランをご提案いたします。
+  </p>
+</section>
+
+<!-- Product 1: Antenna -->
+<section class="section" style="padding-top: 0;">
+  <div class="product-block">
+    <div class="product-image">
+      <img src="images/antenna.png" alt="DXアンテナ UHF平面デザインアンテナ">
+      <div class="overlay"></div>
+    </div>
+    <div class="product-info">
+      <div class="product-number">01</div>
+      <div class="product-category">Antenna</div>
+      <h3 class="product-name">UHF平面デザインアンテナ</h3>
+      <p class="product-maker">DXアンテナ ── UAH201B(W)</p>
+      <p class="product-desc">
+        従来の魚の骨型アンテナとは異なり、スタイリッシュな平面デザインを採用。
+        外壁に自然に溶け込み、住宅の美観を損ないません。
+        ブースター内蔵で安定した受信性能を実現します。
+      </p>
+      <div class="product-specs">
+        <span class="spec-tag">平面デザイン</span>
+        <span class="spec-tag">ブースター内蔵</span>
+        <span class="spec-tag">5色展開</span>
+      </div>
+      <a href="https://dxantenna-product.dga.jp/detail.html?id=2271&category=110&page=1" class="product-link" target="_blank">製品詳細を見る</a>
+    </div>
+  </div>
+
+  <!-- Product 2: Curtain Rail -->
+  <div class="product-block reverse">
+    <div class="product-image">
+      <img src="images/curtain_rail.webp" alt="TOSO カーテンレール エリート">
+      <div class="overlay"></div>
+    </div>
+    <div class="product-info">
+      <div class="product-number">02</div>
+      <div class="product-category">Window Treatment</div>
+      <h3 class="product-name">カーテンレール エリート</h3>
+      <p class="product-maker">TOSO</p>
+      <p class="product-desc">
+        シンプルでありながら上質な佇まいのカーテンレール。
+        ダブルタイプで厚地カーテンとレースカーテンの二重吊りが可能。
+        LDK・2階FS・2階子供部屋に設置し、統一感のある空間を演出します。
+      </p>
+      <div class="product-specs">
+        <span class="spec-tag">ダブルタイプ</span>
+        <span class="spec-tag">LDK・2階FS・子供部屋</span>
+        <span class="spec-tag">4箇所設置</span>
+      </div>
+      <a href="https://www.toso.co.jp/products/c_rail/k_rail/elite/" class="product-link" target="_blank">製品詳細を見る</a>
+    </div>
+  </div>
+
+  <!-- Product 3: Blind -->
+  <div class="product-block">
+    <div class="product-image">
+      <img src="images/blind.jpg" alt="立川機工 インテリアブラインド">
+      <div class="overlay"></div>
+    </div>
+    <div class="product-info">
+      <div class="product-number">03</div>
+      <div class="product-category">Window Treatment</div>
+      <h3 class="product-name">インテリアブラインド 遮熱</h3>
+      <p class="product-maker">立川機工 ── FIRSTAGE</p>
+      <p class="product-desc">
+        遮熱機能を備えたインテリアブラインドで、夏の日差しをカットしながら快適な室内環境を実現。
+        ワンポール操作またはコードレスで、お子様にも安全な設計です。
+        LDKの腰窓と2階子供部屋に設置します。
+      </p>
+      <div class="product-specs">
+        <span class="spec-tag">遮熱機能</span>
+        <span class="spec-tag">ワンポール / コードレス</span>
+        <span class="spec-tag">チャイルドセーフティ</span>
+      </div>
+      <a href="https://tachikawa-kikou.co.jp/roll-6/" class="product-link" target="_blank">製品詳細を見る</a>
+    </div>
+  </div>
+
+  <!-- Product 4: Roll Screen -->
+  <div class="product-block reverse">
+    <div class="product-image">
+      <img src="images/rollscreen.jpg" alt="立川機工 ロールスクリーン ココルン">
+      <div class="overlay"></div>
+    </div>
+    <div class="product-info">
+      <div class="product-number">04</div>
+      <div class="product-category">Window Treatment</div>
+      <h3 class="product-name">ロールスクリーン ココルン</h3>
+      <p class="product-maker">立川機工 ── FIRSTAGE</p>
+      <p class="product-desc">
+        1階玄関に設置するロールスクリーン。チェーン式の天井付けで、
+        すっきりとした見た目と使いやすさを両立。
+        玄関からの視線を柔らかく遮りながら、明るさを確保します。
+      </p>
+      <div class="product-specs">
+        <span class="spec-tag">チェーン式</span>
+        <span class="spec-tag">天井付</span>
+        <span class="spec-tag">1階玄関</span>
+      </div>
+      <a href="https://tachikawa-kikou.co.jp/roll-1/" class="product-link" target="_blank">製品詳細を見る</a>
+    </div>
+  </div>
+
+  <!-- Product 5: Noibox -->
+  <div class="product-block">
+    <div class="product-image">
+      <img src="images/noibox.webp" alt="TOSO ノイボックス">
+      <div class="overlay"></div>
+    </div>
+    <div class="product-info">
+      <div class="product-number">05</div>
+      <div class="product-category">Window Treatment</div>
+      <h3 class="product-name">ノイボックス カバートップセット</h3>
+      <p class="product-maker">TOSO ── エリート（ダブル）</p>
+      <p class="product-desc">
+        2階寝室の掃き出し窓・腰窓に設置するカーテンボックス。
+        カーテンレール上部をすっきり覆い、光漏れを防止。
+        遮光性と断熱性を高め、上質な睡眠環境を実現します。
+      </p>
+      <div class="product-specs">
+        <span class="spec-tag">カバートップ</span>
+        <span class="spec-tag">遮光・断熱</span>
+        <span class="spec-tag">2階寝室 2箇所</span>
+      </div>
+      <a href="https://www.toso.co.jp/products/c_rail/c_box/noibox/" class="product-link" target="_blank">製品詳細を見る</a>
+    </div>
+  </div>
+
+  <!-- Product 6: Carport -->
+  <div class="product-block reverse">
+    <div class="product-image">
+      <img src="images/carport.jpeg" alt="LIXIL カーポート フーゴ">
+      <div class="overlay"></div>
+    </div>
+    <div class="product-info">
+      <div class="product-number">06</div>
+      <div class="product-category">Carport</div>
+      <h3 class="product-name">カーポート フーゴ 3台用</h3>
+      <p class="product-maker">LIXIL ── 78-50型</p>
+      <p class="product-desc">
+        3台分の駐車スペースを確保する大型カーポート。
+        シャープなデザインと高い耐風圧性能を兼ね備え、
+        大切なお車を雨風から守ります。住宅の外観にも調和するモダンなフォルムです。
+      </p>
+      <div class="product-specs">
+        <span class="spec-tag">3台用</span>
+        <span class="spec-tag">78-50型</span>
+        <span class="spec-tag">高耐風圧</span>
+      </div>
+      <a href="https://www.lixil.co.jp/lineup/carspace/fugo/variation/type_f/" class="product-link" target="_blank">製品詳細を見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- Summary -->
+<section class="summary">
+  <div class="summary-inner">
+    <div class="section-label" style="color: rgba(255,255,255,0.6);">Plan Summary</div>
+    <h2 class="summary-title">すべてが揃った、<br>トータルプラン。</h2>
+    <p class="summary-text">
+      アンテナ工事からウィンドウトリートメント、カーポートまで、
+      新生活に必要なオプション工事をワンストップでご提案。
+      統一感のあるデザインと確かな品質で、理想の住まいを実現します。
+    </p>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-item-number">3</div>
+        <div class="summary-item-label">工事カテゴリー</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-number">10+</div>
+        <div class="summary-item-label">設置箇所</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-number">4</div>
+        <div class="summary-item-label">信頼のメーカー</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-logo">REALIFE</div>
+  <p>合同会社REALIFE ── TEL: 092-600-7592</p>
+</footer>
+
+</body>
+</html>
